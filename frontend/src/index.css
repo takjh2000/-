@@ -1,0 +1,181 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+  background: #f7f7f9;
+  color: #1a1a1a;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  padding: 12px 24px;
+  background: #2b2540;
+  color: white;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.navbar nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  flex: 1;
+}
+
+.navbar nav a {
+  white-space: nowrap;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+}
+
+.navbar-user button {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.content {
+  max-width: 1100px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+.form-page {
+  max-width: 360px;
+  margin: 60px auto;
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-page form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-page input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-page button {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background: #4c3f91;
+  color: white;
+  cursor: pointer;
+}
+
+.hint {
+  color: #666;
+  font-size: 14px;
+}
+
+.error {
+  color: #c0392b;
+}
+
+.info {
+  color: #1e7e34;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  margin-top: 12px;
+}
+
+th,
+td {
+  border-bottom: 1px solid #e5e4e7;
+  padding: 8px 10px;
+  text-align: left;
+  font-size: 14px;
+}
+
+tr.out-of-stock td {
+  color: #aaa;
+}
+
+tr.overdue {
+  background: #ffe5e5;
+}
+
+.toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.toolbar select,
+.toolbar input,
+.search-box {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.inline-form {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  background: white;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.inline-form input,
+.inline-form select {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.inline-form button {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 4px;
+  background: #4c3f91;
+  color: white;
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+}
+
+td button {
+  margin-right: 4px;
+}
