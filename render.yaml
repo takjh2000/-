@@ -5,13 +5,15 @@ services:
     rootDir: backend
     plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    startCommand: printf '%s' "$AIVEN_CA_CERT" > /tmp/aiven-ca.pem && uvicorn app.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: DATABASE_URL
         sync: false
       - key: JWT_SECRET
         sync: false
       - key: ALLOWED_ORIGINS
+        sync: false
+      - key: AIVEN_CA_CERT
         sync: false
       - key: PYTHON_VERSION
         value: 3.11.9
