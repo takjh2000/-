@@ -1,7 +1,7 @@
 from datetime import date, timedelta
 
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from .. import schemas
 from ..auth import get_current_user, require_admin
@@ -102,6 +102,7 @@ def my_rentals(
 ):
     rentals = (
         db.query(Rental)
+        .options(joinedload(Rental.game), joinedload(Rental.borrower))
         .filter(Rental.borrower_id == current_user.id)
         .order_by(Rental.rental_date.desc())
         .all()
@@ -115,7 +116,7 @@ def list_rentals(
     db: Session = Depends(get_db),
     _admin: User = Depends(require_admin),
 ):
-    query = db.query(Rental)
+    query = db.query(Rental).options(joinedload(Rental.game), joinedload(Rental.borrower))
     if status:
         query = query.filter(Rental.status == status)
     rentals = query.order_by(Rental.rental_date.desc()).all()
@@ -129,6 +130,7 @@ def overdue_rentals(
 ):
     rentals = (
         db.query(Rental)
+        .options(joinedload(Rental.game), joinedload(Rental.borrower))
         .filter(Rental.status == RentalStatus.rented, Rental.due_date < date.today())
         .order_by(Rental.due_date)
         .all()
@@ -143,6 +145,7 @@ def overdue_stats(
 ):
     returned_late = (
         db.query(Rental)
+        .options(joinedload(Rental.borrower))
         .filter(Rental.status == RentalStatus.returned, Rental.return_date > Rental.due_date)
         .all()
     )

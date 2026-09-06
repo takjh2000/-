@@ -41,7 +41,33 @@ def list_games(
     if search:
         query = query.filter(Game.name.ilike(f"%{search}%"))
     games = query.order_by(Game.name).all()
-    return [_to_game_out(db, g) for g in games]
+
+    # 게임마다 개별 COUNT 쿼리를 날리면 원격 DB에서 N+1 문제로 매우 느려지므로,
+    # 대여중 수량을 game_id별로 한 번에 그룹핑해서 가져온 뒤 메모리에서 매핑한다.
+    game_ids = [g.id for g in games]
+    rented_counts: dict[int, int] = {}
+    if game_ids:
+        rows = (
+            db.query(Rental.game_id, func.count(Rental.id))
+            .filter(Rental.game_id.in_(game_ids), Rental.status == RentalStatus.rented)
+            .group_by(Rental.game_id)
+            .all()
+        )
+        rented_counts = dict(rows)
+
+    return [
+        schemas.GameOut(
+            id=g.id,
+            name=g.name,
+            category=g.category,
+            owner=g.owner,
+            total_quantity=g.total_quantity,
+            notes=g.notes,
+            rented_quantity=rented_counts.get(g.id, 0),
+            remaining_quantity=g.total_quantity - rented_counts.get(g.id, 0),
+        )
+        for g in games
+    ]
 
 
 @router.post("", response_model=schemas.GameOut)
