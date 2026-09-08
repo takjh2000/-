@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from .. import schemas
-from ..auth import hash_password, verify_password, create_access_token, get_current_user
+from ..auth import hash_password, verify_password, create_access_token, get_current_user, needs_rehash
 from ..database import get_db
 from ..models import User
 
@@ -31,6 +31,10 @@ def login(payload: schemas.LoginRequest, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.username == payload.username).first()
     if not user or not verify_password(payload.password, user.password_hash):
         raise HTTPException(status_code=401, detail="아이디 또는 비밀번호가 올바르지 않습니다.")
+
+    if needs_rehash(user.password_hash):
+        user.password_hash = hash_password(payload.password)
+        db.commit()
 
     token = create_access_token(subject=user.username)
     return schemas.Token(access_token=token)
