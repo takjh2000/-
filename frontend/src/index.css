@@ -2,46 +2,94 @@
   box-sizing: border-box;
 }
 
+:root {
+  --navy: #101830;
+  --navy-light: #1c2748;
+  --gold: #c9a24b;
+  --gold-light: #e3c789;
+  --burgundy: #7a1f2b;
+  --felt: #1e5631;
+  --felt-light: #2f7a46;
+  --parchment: #f4ecd8;
+  --cream: #fbf6ea;
+  --ink: #2a2118;
+  --muted: #7a6f5c;
+  --line: #d9c9a3;
+
+  --font-display: "Cinzel", "Times New Roman", serif;
+  --font-type: "Special Elite", "Courier New", monospace;
+  --font-body: Georgia, "Nanum Myeongjo", "Times New Roman", serif;
+}
+
 body {
   margin: 0;
-  font-family: system-ui, "Segoe UI", Roboto, sans-serif;
-  background: #f7f7f9;
-  color: #1a1a1a;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background-color: var(--parchment);
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(201, 162, 75, 0.08), transparent 40%),
+    radial-gradient(circle at 80% 60%, rgba(30, 86, 49, 0.06), transparent 45%),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.015) 0px, rgba(0, 0, 0, 0.015) 1px, transparent 1px, transparent 3px);
+  min-height: 100vh;
 }
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  color: var(--navy);
+  letter-spacing: 0.02em;
+}
+
+/* ---------- Navbar ---------- */
 
 .navbar {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 12px 24px;
-  padding: 12px 24px;
-  background: #2b2540;
-  color: white;
+  padding: 14px 28px;
+  background: linear-gradient(180deg, var(--navy) 0%, var(--navy-light) 100%);
+  color: var(--parchment);
+  border-bottom: 3px solid var(--gold);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
 }
 
 .navbar-brand {
+  font-family: var(--font-display);
   font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--gold-light);
   white-space: nowrap;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
 }
 
 .navbar nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 16px;
+  gap: 8px 20px;
   flex: 1;
+  font-family: var(--font-type);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .navbar nav a {
   white-space: nowrap;
+  position: relative;
+  padding-bottom: 2px;
 }
 
 .navbar a {
-  color: white;
+  color: var(--parchment);
   text-decoration: none;
 }
 
 .navbar a:hover {
-  text-decoration: underline;
+  color: var(--gold-light);
+  border-bottom: 1px solid var(--gold);
 }
 
 .navbar-user {
@@ -49,88 +97,210 @@ body {
   align-items: center;
   gap: 12px;
   white-space: nowrap;
+  font-size: 0.9rem;
 }
 
 .navbar-user button {
+  font-family: var(--font-type);
   background: transparent;
-  border: 1px solid white;
-  color: white;
-  padding: 4px 10px;
-  border-radius: 4px;
+  border: 1px solid var(--gold);
+  color: var(--gold-light);
+  padding: 5px 12px;
+  border-radius: 3px;
   cursor: pointer;
+  letter-spacing: 0.03em;
+  transition: background 0.15s ease, color 0.15s ease;
 }
+
+.navbar-user button:hover {
+  background: var(--gold);
+  color: var(--navy);
+}
+
+/* ---------- Layout ---------- */
 
 .content {
   max-width: 1100px;
-  margin: 24px auto;
+  margin: 28px auto;
   padding: 0 16px;
 }
 
+/* ---------- Forms / case-file card ---------- */
+
 .form-page {
-  max-width: 360px;
+  max-width: 380px;
   margin: 60px auto;
-  background: white;
-  padding: 24px;
-  border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  background: var(--cream);
+  padding: 28px 26px;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  box-shadow: 0 4px 18px rgba(16, 24, 48, 0.18), inset 0 0 0 4px rgba(201, 162, 75, 0.12);
+  position: relative;
+}
+
+.form-page::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid var(--gold);
+  border-radius: 2px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.form-page h2 {
+  text-align: center;
+  margin-top: 0;
 }
 
 .form-page form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .form-page input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: #fff;
+  font-family: var(--font-body);
+  color: var(--ink);
+}
+
+.form-page input:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px rgba(201, 162, 75, 0.3);
 }
 
 .form-page button {
   padding: 10px;
   border: none;
-  border-radius: 4px;
-  background: #4c3f91;
-  color: white;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--navy-light), var(--navy));
+  color: var(--gold-light);
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
   cursor: pointer;
+  transition: filter 0.15s ease;
+}
+
+.form-page button:hover {
+  filter: brightness(1.2);
 }
 
 .hint {
-  color: #666;
+  color: var(--muted);
   font-size: 14px;
+  text-align: center;
 }
 
 .error {
-  color: #c0392b;
+  color: var(--burgundy);
+  font-family: var(--font-type);
 }
 
 .info {
-  color: #1e7e34;
+  color: var(--felt);
+  font-family: var(--font-type);
 }
+
+/* ---------- Tables (dossier style) ---------- */
 
 table {
   width: 100%;
   border-collapse: collapse;
-  background: white;
+  background: var(--cream);
   margin-top: 12px;
+  border: 1px solid var(--line);
+  box-shadow: 0 2px 8px rgba(16, 24, 48, 0.08);
+}
+
+thead {
+  background: var(--navy);
+}
+
+th {
+  color: var(--gold-light);
+  font-family: var(--font-type);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: 12.5px;
 }
 
 th,
 td {
-  border-bottom: 1px solid #e5e4e7;
-  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  padding: 9px 12px;
   text-align: left;
   font-size: 14px;
 }
 
+tbody tr:nth-child(even) {
+  background: rgba(201, 162, 75, 0.06);
+}
+
+tbody tr:hover {
+  background: rgba(201, 162, 75, 0.14);
+}
+
 tr.out-of-stock td {
-  color: #aaa;
+  color: #a99f8c;
+  font-style: italic;
 }
 
 tr.overdue {
-  background: #ffe5e5;
+  background: rgba(122, 31, 43, 0.1) !important;
+  box-shadow: inset 3px 0 0 var(--burgundy);
 }
+
+/* ---------- Category / status badges ---------- */
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-family: var(--font-type);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.badge-boardgame {
+  background: rgba(30, 86, 49, 0.14);
+  color: var(--felt);
+  border: 1px solid var(--felt-light);
+}
+
+.badge-crimescene {
+  background: rgba(122, 31, 43, 0.14);
+  color: var(--burgundy);
+  border: 1px solid var(--burgundy);
+}
+
+.badge-rented {
+  background: rgba(16, 24, 48, 0.1);
+  color: var(--navy);
+  border: 1px solid var(--navy-light);
+}
+
+.badge-returned {
+  background: rgba(30, 86, 49, 0.14);
+  color: var(--felt);
+  border: 1px solid var(--felt-light);
+}
+
+.badge-overdue {
+  background: var(--burgundy);
+  color: var(--cream);
+  border: 1px solid var(--burgundy);
+  font-weight: bold;
+}
+
+/* ---------- Toolbars / inline forms ---------- */
 
 .toolbar {
   display: flex;
@@ -141,9 +311,11 @@ tr.overdue {
 .toolbar select,
 .toolbar input,
 .search-box {
-  padding: 6px 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--cream);
+  font-family: var(--font-body);
 }
 
 .inline-form {
@@ -151,25 +323,33 @@ tr.overdue {
   gap: 8px;
   flex-wrap: wrap;
   margin-bottom: 16px;
-  background: white;
-  padding: 12px;
-  border-radius: 8px;
+  background: var(--cream);
+  padding: 14px;
+  border-radius: 4px;
+  border: 1px solid var(--line);
 }
 
 .inline-form input,
 .inline-form select {
-  padding: 6px 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: #fff;
 }
 
 .inline-form button {
-  padding: 6px 14px;
+  padding: 7px 16px;
   border: none;
-  border-radius: 4px;
-  background: #4c3f91;
-  color: white;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--navy-light), var(--navy));
+  color: var(--gold-light);
+  font-family: var(--font-display);
+  letter-spacing: 0.03em;
   cursor: pointer;
+}
+
+.inline-form button:hover {
+  filter: brightness(1.2);
 }
 
 button {
@@ -178,4 +358,16 @@ button {
 
 td button {
   margin-right: 4px;
+  font-family: var(--font-type);
+  font-size: 12.5px;
+  background: transparent;
+  border: 1px solid var(--navy-light);
+  color: var(--navy);
+  border-radius: 3px;
+  padding: 4px 8px;
+}
+
+td button:hover {
+  background: var(--navy);
+  color: var(--gold-light);
 }

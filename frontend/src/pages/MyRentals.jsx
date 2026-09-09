@@ -47,7 +47,15 @@ export function MyRentals() {
               <td>{r.due_date}</td>
               <td>{r.return_date || "-"}</td>
               <td>
-                {r.status === "rented" ? (r.is_overdue ? "🚨연체중🚨" : "대여중") : "반납완료"}
+                {r.status === "rented" ? (
+                  r.is_overdue ? (
+                    <span className="badge badge-overdue">연체중</span>
+                  ) : (
+                    <span className="badge badge-rented">대여중</span>
+                  )
+                ) : (
+                  <span className="badge badge-returned">반납완료</span>
+                )}
               </td>
               <td>
                 {r.status === "rented" && (

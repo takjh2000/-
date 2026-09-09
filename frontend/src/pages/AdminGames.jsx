@@ -115,7 +115,11 @@ export function AdminGames() {
           {games.map((g) => (
             <tr key={g.id}>
               <td>{g.name}</td>
-              <td>{g.category === "boardgame" ? "보드게임" : "크라임씬"}</td>
+              <td>
+                <span className={`badge ${g.category === "boardgame" ? "badge-boardgame" : "badge-crimescene"}`}>
+                  {g.category === "boardgame" ? "보드게임" : "크라임씬"}
+                </span>
+              </td>
               <td>
                 <input
                   defaultValue={g.owner || ""}

@@ -66,7 +66,11 @@ export function GameList() {
           {games.map((g) => (
             <tr key={g.id} className={g.remaining_quantity <= 0 ? "out-of-stock" : ""}>
               <td>{g.name}</td>
-              <td>{g.category === "boardgame" ? "보드게임" : "크라임씬"}</td>
+              <td>
+                <span className={`badge ${g.category === "boardgame" ? "badge-boardgame" : "badge-crimescene"}`}>
+                  {g.category === "boardgame" ? "보드게임" : "크라임씬"}
+                </span>
+              </td>
               <td>{g.owner}</td>
               <td>{g.total_quantity}</td>
               <td>{g.remaining_quantity}</td>

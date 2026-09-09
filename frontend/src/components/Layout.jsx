@@ -13,7 +13,7 @@ export function Layout() {
   return (
     <div>
       <header className="navbar">
-        <div className="navbar-brand">🎲 보드게임 대여 시스템</div>
+        <div className="navbar-brand">🎲 보드게임 대여 시스템 🔍</div>
         <nav>
           <Link to="/">게임 목록</Link>
           {user && <Link to="/my-rentals">내 대여 현황</Link>}
