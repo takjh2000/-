@@ -60,7 +60,7 @@ export function AdminRentals() {
         </select>
       </div>
       {message && <p className="error">{message}</p>}
-      <table>
+      <table className="stack-on-mobile">
         <thead>
           <tr>
             <th>게임</th>
@@ -75,12 +75,12 @@ export function AdminRentals() {
         <tbody>
           {rentals.map((r) => (
             <tr key={r.id} className={r.is_overdue ? "overdue" : ""}>
-              <td>{r.game_name}</td>
-              <td>{r.borrower_name}</td>
-              <td>{r.rental_date}</td>
-              <td>{r.due_date}</td>
-              <td>{r.return_date || "-"}</td>
-              <td>
+              <td data-label="게임">{r.game_name}</td>
+              <td data-label="대여자">{r.borrower_name}</td>
+              <td data-label="대여일">{r.rental_date}</td>
+              <td data-label="반납예정일">{r.due_date}</td>
+              <td data-label="반납일">{r.return_date || "-"}</td>
+              <td data-label="상태">
                 {r.status === "rented" ? (
                   r.is_overdue ? (
                     <span className="badge badge-overdue">연체중</span>
@@ -91,7 +91,7 @@ export function AdminRentals() {
                   <span className="badge badge-returned">반납완료</span>
                 )}
               </td>
-              <td>
+              <td data-label="관리">
                 {r.status === "rented" && <button onClick={() => handleReturn(r.id)}>반납처리</button>}
                 <button onClick={() => handleDelete(r.id)}>삭제</button>
               </td>
@@ -101,7 +101,7 @@ export function AdminRentals() {
       </table>
 
       <h2>연체 누적 통계</h2>
-      <table>
+      <table className="stack-on-mobile">
         <thead>
           <tr>
             <th>이름</th>
@@ -112,9 +112,9 @@ export function AdminRentals() {
         <tbody>
           {stats.map((s) => (
             <tr key={s.user_id}>
-              <td>{s.name}</td>
-              <td>{s.total_overdue_days}일</td>
-              <td>{s.overdue_count}회</td>
+              <td data-label="이름">{s.name}</td>
+              <td data-label="누적 연체 일수">{s.total_overdue_days}일</td>
+              <td data-label="누적 연체 횟수">{s.overdue_count}회</td>
             </tr>
           ))}
         </tbody>

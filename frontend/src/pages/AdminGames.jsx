@@ -98,7 +98,7 @@ export function AdminGames() {
       />
       {message && <p className="error">{message}</p>}
 
-      <table>
+      <table className="stack-on-mobile">
         <thead>
           <tr>
             <th>게임 이름</th>
@@ -114,19 +114,19 @@ export function AdminGames() {
         <tbody>
           {games.map((g) => (
             <tr key={g.id}>
-              <td>{g.name}</td>
-              <td>
+              <td data-label="게임 이름">{g.name}</td>
+              <td data-label="카테고리">
                 <span className={`badge ${g.category === "boardgame" ? "badge-boardgame" : "badge-crimescene"}`}>
                   {g.category === "boardgame" ? "보드게임" : "크라임씬"}
                 </span>
               </td>
-              <td>
+              <td data-label="소유자">
                 <input
                   defaultValue={g.owner || ""}
                   onBlur={(e) => handleUpdate(g, "owner", e.target.value)}
                 />
               </td>
-              <td>
+              <td data-label="전체 수량">
                 <input
                   type="number"
                   min="0"
@@ -134,15 +134,15 @@ export function AdminGames() {
                   onBlur={(e) => handleUpdate(g, "total_quantity", Number(e.target.value))}
                 />
               </td>
-              <td>{g.rented_quantity}</td>
-              <td>{g.remaining_quantity}</td>
-              <td>
+              <td data-label="대여중">{g.rented_quantity}</td>
+              <td data-label="남은 재고">{g.remaining_quantity}</td>
+              <td data-label="비고">
                 <input
                   defaultValue={g.notes || ""}
                   onBlur={(e) => handleUpdate(g, "notes", e.target.value)}
                 />
               </td>
-              <td>
+              <td data-label="관리">
                 <button onClick={() => handleDelete(g.id)}>삭제</button>
               </td>
             </tr>

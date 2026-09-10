@@ -50,42 +50,33 @@ export function GameList() {
         />
       </div>
       {message && <p className="info">{message}</p>}
-      <table>
-        <thead>
-          <tr>
-            <th>게임 이름</th>
-            <th>카테고리</th>
-            <th>소유자</th>
-            <th>전체 수량</th>
-            <th>남은 재고</th>
-            <th>비고</th>
-            {user && <th></th>}
-          </tr>
-        </thead>
-        <tbody>
-          {games.map((g) => (
-            <tr key={g.id} className={g.remaining_quantity <= 0 ? "out-of-stock" : ""}>
-              <td>{g.name}</td>
-              <td>
-                <span className={`badge ${g.category === "boardgame" ? "badge-boardgame" : "badge-crimescene"}`}>
-                  {g.category === "boardgame" ? "보드게임" : "크라임씬"}
-                </span>
-              </td>
-              <td>{g.owner}</td>
-              <td>{g.total_quantity}</td>
-              <td>{g.remaining_quantity}</td>
-              <td>{g.notes}</td>
-              {user && (
-                <td>
-                  <button disabled={g.remaining_quantity <= 0} onClick={() => handleRent(g.id)}>
-                    대여
-                  </button>
-                </td>
-              )}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="game-grid">
+        {games.map((g) => (
+          <div
+            key={g.id}
+            className={`game-card ${g.remaining_quantity <= 0 ? "out-of-stock" : ""}`}
+          >
+            <div className="game-card-header">
+              <span className="game-card-name">{g.name}</span>
+              <span className={`badge ${g.category === "boardgame" ? "badge-boardgame" : "badge-crimescene"}`}>
+                {g.category === "boardgame" ? "보드게임" : "크라임씬"}
+              </span>
+            </div>
+            <div className="game-card-meta">
+              <span>소유자: {g.owner || "-"}</span>
+              <span className="game-card-stock">
+                재고: <strong>{g.remaining_quantity}</strong> / {g.total_quantity}
+              </span>
+            </div>
+            {g.notes && <div className="game-card-notes">{g.notes}</div>}
+            {user && (
+              <button disabled={g.remaining_quantity <= 0} onClick={() => handleRent(g.id)}>
+                {g.remaining_quantity <= 0 ? "대여 불가" : "대여하기"}
+              </button>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

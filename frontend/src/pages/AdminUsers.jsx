@@ -40,7 +40,7 @@ export function AdminUsers() {
     <div>
       <h2>회원 관리</h2>
       {message && <p className="error">{message}</p>}
-      <table>
+      <table className="stack-on-mobile">
         <thead>
           <tr>
             <th>이름</th>
@@ -53,9 +53,9 @@ export function AdminUsers() {
         <tbody>
           {users.map((u) => (
             <tr key={u.id}>
-              <td>{u.name}</td>
-              <td>{u.username}</td>
-              <td>
+              <td data-label="이름">{u.name}</td>
+              <td data-label="아이디">{u.username}</td>
+              <td data-label="권한">
                 <select
                   value={u.role}
                   disabled={u.id === currentUser.id}
@@ -65,8 +65,8 @@ export function AdminUsers() {
                   <option value="admin">임원</option>
                 </select>
               </td>
-              <td>{u.created_at?.slice(0, 10)}</td>
-              <td>
+              <td data-label="가입일">{u.created_at?.slice(0, 10)}</td>
+              <td data-label="관리">
                 {u.id !== currentUser.id && (
                   <button onClick={() => handleDelete(u.id)}>삭제</button>
                 )}

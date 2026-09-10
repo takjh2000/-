@@ -256,6 +256,101 @@ tr.overdue {
   box-shadow: inset 3px 0 0 var(--burgundy);
 }
 
+/* ---------- Responsive game grid (game shelf) ---------- */
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.game-card {
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(16, 24, 48, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.game-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 24, 48, 0.16);
+}
+
+.game-card.out-of-stock {
+  opacity: 0.6;
+}
+
+.game-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.game-card-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--navy);
+  font-size: 1.05rem;
+  line-height: 1.3;
+}
+
+.game-card-meta {
+  font-family: var(--font-type);
+  font-size: 12.5px;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.game-card-stock {
+  font-size: 13.5px;
+}
+
+.game-card-stock strong {
+  color: var(--felt);
+}
+
+.game-card.out-of-stock .game-card-stock strong {
+  color: var(--burgundy);
+}
+
+.game-card-notes {
+  font-size: 13px;
+  color: var(--muted);
+  font-style: italic;
+  flex: 1;
+}
+
+.game-card button {
+  margin-top: auto;
+  padding: 9px;
+  border: none;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--navy-light), var(--navy));
+  color: var(--gold-light);
+  font-family: var(--font-display);
+  letter-spacing: 0.03em;
+  cursor: pointer;
+}
+
+.game-card button:disabled {
+  background: #d9d3c3;
+  color: #9c9484;
+  cursor: not-allowed;
+}
+
+.game-card button:not(:disabled):hover {
+  filter: brightness(1.2);
+}
+
 /* ---------- Category / status badges ---------- */
 
 .badge {
@@ -370,4 +465,86 @@ td button {
 td button:hover {
   background: var(--navy);
   color: var(--gold-light);
+}
+
+/* ---------- Responsive: stack tables into cards on narrow screens ---------- */
+
+@media (max-width: 700px) {
+  .content {
+    padding: 0 12px;
+  }
+
+  table.stack-on-mobile thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  table.stack-on-mobile,
+  table.stack-on-mobile tbody,
+  table.stack-on-mobile tr,
+  table.stack-on-mobile td {
+    display: block;
+    width: 100%;
+  }
+
+  table.stack-on-mobile tr {
+    margin-bottom: 12px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  table.stack-on-mobile tr.overdue {
+    box-shadow: inset 3px 0 0 var(--burgundy);
+  }
+
+  table.stack-on-mobile td {
+    border-bottom: 1px solid var(--line);
+    padding: 8px 12px 8px 44%;
+    position: relative;
+    text-align: right;
+    min-height: 34px;
+  }
+
+  table.stack-on-mobile td:last-child {
+    border-bottom: none;
+  }
+
+  table.stack-on-mobile td:empty {
+    display: none;
+  }
+
+  table.stack-on-mobile td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 12px;
+    width: 40%;
+    text-align: left;
+    font-family: var(--font-type);
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .toolbar {
+    flex-wrap: wrap;
+  }
+
+  .toolbar select,
+  .toolbar input,
+  .search-box {
+    flex: 1;
+    min-width: 140px;
+  }
+
+  .inline-form input,
+  .inline-form select,
+  .inline-form button {
+    flex: 1 1 140px;
+  }
 }

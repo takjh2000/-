@@ -28,7 +28,7 @@ export function MyRentals() {
     <div>
       <h2>내 대여 현황</h2>
       {message && <p className="error">{message}</p>}
-      <table>
+      <table className="stack-on-mobile">
         <thead>
           <tr>
             <th>게임 이름</th>
@@ -42,11 +42,11 @@ export function MyRentals() {
         <tbody>
           {rentals.map((r) => (
             <tr key={r.id} className={r.is_overdue ? "overdue" : ""}>
-              <td>{r.game_name}</td>
-              <td>{r.rental_date}</td>
-              <td>{r.due_date}</td>
-              <td>{r.return_date || "-"}</td>
-              <td>
+              <td data-label="게임 이름">{r.game_name}</td>
+              <td data-label="대여일">{r.rental_date}</td>
+              <td data-label="반납 예정일">{r.due_date}</td>
+              <td data-label="반납일">{r.return_date || "-"}</td>
+              <td data-label="상태">
                 {r.status === "rented" ? (
                   r.is_overdue ? (
                     <span className="badge badge-overdue">연체중</span>
@@ -57,7 +57,7 @@ export function MyRentals() {
                   <span className="badge badge-returned">반납완료</span>
                 )}
               </td>
-              <td>
+              <td data-label="관리">
                 {r.status === "rented" && (
                   <button onClick={() => handleReturn(r.id)}>반납</button>
                 )}
